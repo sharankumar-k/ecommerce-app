@@ -1,0 +1,39 @@
+86f1c8b Restore backend folder
+3111618 ecommerce-frontend
+702dd8d order  service updated
+acbe64f contorllers updated
+f1f9fa4 pom xml updated
+6ca258b cart item updated
+d19b885 code updated
+3ff84bf order and order item updated to handle token
+ff5de7f payment updated to handle token
+21f9c24 updated code after api security testing
+02127d9 users,utils and config updated for security
+1ad1d34 cart updated for api testing
+f254881 implemented authentication endpoints and user repository with JWTsupport
+bfe244f added security, CORS, JWT and password encoder utilities
+cc55dfd JWT and Spring Security dependencies are added in pom xml
+7854164 product updated to handle dto
+5df8623 category updated to handle dto
+11f5fb3 order item updated to handle dto
+75f2c35 user updated to handle dto
+f480e7f wishlist updated to handle dto
+af223f2 pom updated
+b410b2f order updated to handle dto
+1ec006b cart updated to handle dto
+b73cfbf payment updated to handle dto
+9f26c2f dto classes added for request and response handling
+d0f9c92 controller updated to handle exceptions
+0173743 exception classes updated
+d0f8c59 orderitem errors fixed
+64c0df9 application properties edited
+dada436 services
+ffbd866 controller classes are updated to handle services
+1537b01 remaining repositories are added
+e12f893 controller classes are created
+6158657 controller classes are created
+912e9ca repository classes are created
+183bb34 entity classes are completed
+3fc2030 ecommerce front end
+c4c2381 Update frontend code and package.json
+2e83dd7 Add React frontend code
