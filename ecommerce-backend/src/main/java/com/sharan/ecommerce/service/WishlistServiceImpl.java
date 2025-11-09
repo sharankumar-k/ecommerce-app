@@ -32,14 +32,16 @@ public class WishlistServiceImpl implements WishlistService {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        return wishlistRepository.findByUser(user).stream()
-                .map(w -> {
-                    WishlistResponseDTO dto = new WishlistResponseDTO();
-                    dto.setId(w.getId());
-                    dto.setProductId(w.getProduct().getId());
-                    dto.setProductName(w.getProduct().getName());
-                    return dto;
-                }).collect(Collectors.toList());
+        return wishlistRepository.findByUser(user)
+                .stream()
+                .map(w -> new WishlistResponseDTO(
+                        w.getId(),
+                        w.getProduct().getId(),
+                        w.getProduct().getName(),
+                        w.getProduct().getPrice(),
+                        w.getProduct().getImageUrl() // ✅ include image
+                ))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -60,11 +62,13 @@ public class WishlistServiceImpl implements WishlistService {
         wishlist.setProduct(product);
         wishlistRepository.save(wishlist);
 
-        WishlistResponseDTO response = new WishlistResponseDTO();
-        response.setId(wishlist.getId());
-        response.setProductId(product.getId());
-        response.setProductName(product.getName());
-        return response;
+        return new WishlistResponseDTO(
+                wishlist.getId(),
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getImageUrl() // ✅ include image
+        );
     }
 
     @Override

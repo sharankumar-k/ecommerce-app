@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,21 +35,16 @@ public class CartServiceImpl implements CartService {
 
         CartResponseDTO cartResponse = addItemToCart(userEmail, dto);
 
-        // Return only the last added item for controller
-        CartItemResponseDTO lastAdded = cartResponse.getItems()
-                .stream()
+        return cartResponse.getItems().stream()
                 .filter(item -> item.getProductId().equals(productId))
                 .findFirst()
                 .orElse(null);
-
-        return lastAdded;
     }
 
     @Override
     @Transactional
     public List<CartItemResponseDTO> getCart(String userEmail) {
-        CartResponseDTO cartResponse = getCartForUser(userEmail);
-        return cartResponse.getItems();
+        return getCartForUser(userEmail).getItems();
     }
 
     @Override
@@ -64,7 +58,8 @@ public class CartServiceImpl implements CartService {
 
         Cart existing = cartRepository.findByUser(user).stream()
                 .filter(c -> c.getProduct().getId().equals(product.getId()))
-                .findFirst().orElse(null);
+                .findFirst()
+                .orElse(null);
 
         if (existing != null) {
             existing.setQuantity(existing.getQuantity() + dto.getQuantity());
@@ -80,28 +75,27 @@ public class CartServiceImpl implements CartService {
         return getCartForUser(userEmail);
     }
 
-    
     @Transactional
-    
     public CartResponseDTO getCartForUser(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<CartItemResponseDTO> itemResponses = cartRepository.findByUser(user).stream().map(c -> {
-            CartItemResponseDTO dto = new CartItemResponseDTO();
-            dto.setId(c.getId());
-            dto.setProductId(c.getProduct().getId());
-            dto.setProductName(c.getProduct().getName());
-            dto.setQuantity(c.getQuantity());
-            dto.setPrice(c.getProduct().getPrice()); // assign directly, no conversion
-            return dto;
-        }).collect(Collectors.toList());
+        List<CartItemResponseDTO> itemResponses = cartRepository.findByUser(user)
+                .stream()
+                .map(c -> new CartItemResponseDTO(
+                        c.getId(),
+                        c.getProduct().getId(),
+                        c.getProduct().getName(),
+                        c.getProduct().getPrice(),
+                        c.getQuantity(),
+                        c.getProduct().getImageUrl() // ✅ include image
+                ))
+                .collect(Collectors.toList());
 
         CartResponseDTO response = new CartResponseDTO(itemResponses);
         response.setUserId(user.getId());
         return response;
     }
-
 
     @Override
     @Transactional
