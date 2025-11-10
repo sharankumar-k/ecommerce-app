@@ -1,19 +1,18 @@
-// src/components/cart/Cart.js
-import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../../api/api';
-import { AuthContext } from '../../context/AuthContext';
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
+import { AuthContext } from "../../context/AuthContext";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     fetchCart();
@@ -22,90 +21,141 @@ const Cart = () => {
   const fetchCart = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/cart');
-      console.log('Raw cart response:', JSON.stringify(response.data, null, 2));
-      const cartItems = response.data.items || [];
-      setCart(cartItems);
-      const invalidItems = cartItems.filter(item => !item.productName || !item.price || !item.id);
-      if (invalidItems.length > 0) {
-        setError(`Invalid cart items: IDs [${invalidItems.map(item => item.id || 'unknown').join(', ')}]`);
-      }
+      const response = await api.get("/cart");
+      setCart(response.data.items || []);
+      setError("");
     } catch (err) {
-      const errorMessage = err.response?.data?.message || err.message;
-      setError('Failed to fetch cart: ' + errorMessage);
-      console.error('Cart fetch error:', err);
+      setError("Failed to fetch cart: " + (err.response?.data?.message || err.message));
     } finally {
       setLoading(false);
     }
   };
 
-  const calculateTotal = () => {
-    return cart.reduce((total, item) => {
-      const price = item.price || 0;
-      return total + price * item.quantity;
-    }, 0).toFixed(2);
-  };
+  const calculateTotal = () =>
+    cart
+      .reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0)
+      .toFixed(2);
 
   const handleClearCart = async () => {
     try {
-      await api.delete('/cart/clear');
+      await api.delete("/cart/clear");
       setCart([]);
-      setError('');
     } catch (err) {
-      const errorMessage = err.response?.data?.message || err.message;
-      console.error('Clear cart error:', err);
+      console.error("Clear cart error:", err);
     }
   };
 
+  // Unified elegant button styling
+  const buttonStyle = {
+    minWidth: "140px",
+    padding: "10px 18px",
+    border: "none",
+    borderRadius: "8px",
+    fontWeight: "600",
+    fontSize: "0.95rem",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+  };
+
   return (
-    <div className="container mt-4">
-      <h2>Cart</h2>
+    <div className="container py-4">
+      <h2 className="fw-bold mb-4 text-primary">🛒 Your Shopping Cart</h2>
+
       {error && <div className="alert alert-danger">{error}</div>}
+
       {loading ? (
-        <div className="text-center">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+        <div className="text-center py-5">
+          <div className="spinner-border text-primary" role="status"></div>
         </div>
       ) : cart.length === 0 ? (
-        <p className="text-muted">Your cart is empty.</p>
+        <p className="text-muted text-center fs-5">Your cart is empty.</p>
       ) : (
         <>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.map(item => (
-                <tr key={item.id || Math.random()}>
-                  <td>{item.productName || 'Unknown Product'}</td>
-                  <td>${(item.price || 0).toFixed(2)}</td>
-                  <td>{item.quantity || 0}</td>
-                  <td>${((item.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
+          <div className="table-responsive">
+            <table className="table align-middle table-hover">
+              <thead className="table-light">
+                <tr>
+                  <th>Product</th>
+                  <th>Image</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <h4>Total: ${calculateTotal()}</h4>
-          <button
-            className="btn btn-success me-2"
-            onClick={() => navigate('/checkout')}
-            disabled={loading}
-          >
-            Proceed to Checkout
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={handleClearCart}
-            disabled={loading}
-          >
-            Clear Cart
-          </button>
+              </thead>
+              <tbody>
+                {cart.map((item) => (
+                  <tr key={item.id}>
+                    <td className="fw-semibold">{item.productName}</td>
+                    <td>
+                      <img
+                        src={
+                          item.imageUrl ||
+                          "https://via.placeholder.com/80x80.png?text=No+Image"
+                        }
+                        alt={item.productName}
+                        style={{
+                          width: "70px",
+                          height: "70px",
+                          objectFit: "contain",
+                          borderRadius: "6px",
+                          background: "#f8f9fa",
+                          padding: "6px",
+                        }}
+                      />
+                    </td>
+                    <td>₹{(item.price || 0).toFixed(2)}</td>
+                    <td>{item.quantity || 0}</td>
+                    <td className="fw-semibold text-success">
+                      ₹{((item.price || 0) * (item.quantity || 0)).toFixed(2)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+            <h4 className="fw-bold text-success mb-0">
+              Total: ₹{calculateTotal()}
+            </h4>
+
+            <div className="d-flex gap-2">
+              <button
+                style={{
+                  ...buttonStyle,
+                  background: "linear-gradient(135deg, #FFD700, #E6B800)",
+                  color: "#212121",
+                }}
+                onMouseEnter={(e) =>
+                  (e.target.style.background = "linear-gradient(135deg, #FFE55C, #FFCA28)")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.background = "linear-gradient(135deg, #FFD700, #E6B800)")
+                }
+                onClick={() => navigate("/checkout")}
+              >
+                Proceed to Checkout
+              </button>
+
+              <button
+                style={{
+                  ...buttonStyle,
+                  background: "linear-gradient(135deg, #FF4D4D, #E53935)",
+                  color: "#fff",
+                }}
+                onMouseEnter={(e) =>
+                  (e.target.style.background = "linear-gradient(135deg, #FF6B6B, #EF5350)")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.background = "linear-gradient(135deg, #FF4D4D, #E53935)")
+                }
+                onClick={handleClearCart}
+              >
+                Clear Cart
+              </button>
+            </div>
+          </div>
         </>
       )}
     </div>
