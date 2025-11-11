@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+// src/components/AnimatedBackground.js
+import { useEffect } from "react";
 
 const AnimatedBackground = () => {
   useEffect(() => {
@@ -6,69 +7,40 @@ const AnimatedBackground = () => {
     style.innerHTML = `
       body {
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
-        background: linear-gradient(
-          135deg,
-          #f9fafc 0%,
-          #e6f0fa 35%,
-          #d9e8f5 60%,
-          #f5f7fa 100%
-        );
-        background-size: 400% 400%;
-        animation: subtleGradient 18s ease infinite;
-        color: #212121;
+        padding: 0;
         overflow-x: hidden;
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb, #e0f7fa);
+        background-size: 200% 200%;
+        animation: smoothFlow 18s ease-in-out infinite;
+        font-family: 'Inter', sans-serif;
         transition: background 0.5s ease;
       }
 
-      @keyframes subtleGradient {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
+      @keyframes smoothFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
 
-      /* 🌫️ Soft light overlays for premium depth */
+      /* Subtle overlay for soft depth */
       body::before {
-        content: "";
+        content: '';
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
+        inset: 0;
         background: radial-gradient(
-            circle at top left,
-            rgba(255, 255, 255, 0.65),
-            transparent 70%
-          ),
-          radial-gradient(
-            circle at bottom right,
-            rgba(210, 225, 240, 0.4),
-            transparent 70%
-          ),
-          radial-gradient(
-            circle at center,
-            rgba(230, 235, 245, 0.2),
-            transparent 60%
-          );
+          circle at 20% 20%, 
+          rgba(255, 255, 255, 0.3),
+          rgba(255, 255, 255, 0.1) 60%
+        );
         z-index: -1;
       }
 
-      /* Optional: subtle fade-in effect on page load */
-      html, body {
-        opacity: 0;
-        animation: fadeInSmooth 1.2s ease forwards;
-      }
-
-      @keyframes fadeInSmooth {
-        from { opacity: 0; }
-        to { opacity: 1; }
+      /* Frosted look for content areas */
+      .home-container, .main-content {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
       }
     `;
     document.head.appendChild(style);

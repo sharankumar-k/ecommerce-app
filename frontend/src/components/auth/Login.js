@@ -1,3 +1,4 @@
+// src/components/auth/Login.js
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -18,9 +19,7 @@ const Login = () => {
     setLoading(false);
 
     if (success) {
-      // Get user details from localStorage
       const user = JSON.parse(localStorage.getItem("user"));
-
       if (user?.role === "ADMIN") {
         toast.success("Welcome Admin! Redirecting...");
         navigate("/admin/dashboard");
@@ -34,39 +33,56 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "450px" }}>
-      <h3 className="text-center mb-4">Login</h3>
-      <form onSubmit={handleSubmit}>
-        
-        <div className="mb-3">
-          <label className="form-label">Email</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+    <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+      <div className="card shadow p-4" style={{ width: "400px", borderRadius: "12px" }}>
+        <h2 className="text-center mb-3 fw-bold text-primary">PrimeZone</h2>
+        <h4 className="text-center mb-4">Login</h4>
 
-        <div className="mb-3">
-          <label className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label fw-semibold">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <button type="submit" className="btn btn-primary w-100" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
+          <div className="mb-3">
+            <label className="form-label fw-semibold">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-      </form>
+          <button
+            type="submit"
+            className="btn btn-primary w-100 fw-semibold"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+
+          <p className="text-center mt-3 mb-0">
+            Don’t have an account?{" "}
+            <span
+              className="text-primary fw-semibold"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </span>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

@@ -74,22 +74,25 @@ const Wishlist = () => {
           <div className="spinner-border text-primary" role="status"></div>
         </div>
       ) : wishlist.length === 0 ? (
-        <p className="text-muted text-center fs-5">Your wishlist is empty.</p>
+        <div className="text-center py-5">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/833/833472.png"
+            alt="Empty wishlist"
+            width="120"
+            height="120"
+            className="mb-3"
+          />
+          <p className="text-muted fs-5">Your wishlist is empty.</p>
+        </div>
       ) : (
         <div className="row g-3">
           {wishlist.map((item) => (
             <div className="col-md-4" key={item.id || Math.random()}>
-              <div
-                className="card border-0 shadow-sm h-100 text-center p-3"
-                style={{
-                  borderRadius: "12px",
-                  transition: "all 0.3s ease",
-                }}
-              >
+              <div className="card border-0 shadow-sm h-100 text-center p-3">
                 <img
                   src={
                     item.imageUrl ||
-                    "https://via.placeholder.com/140x140.png?text=No+Image"
+                    "https://cdn-icons-png.flaticon.com/512/2748/2748558.png"
                   }
                   alt={item.productName}
                   style={{
@@ -114,14 +117,6 @@ const Wishlist = () => {
                       background: "linear-gradient(135deg, #FFD700, #E6B800)",
                       color: "#000",
                     }}
-                    onMouseEnter={(e) =>
-                      (e.target.style.background =
-                        "linear-gradient(135deg, #FFE55C, #FFCA28)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.background =
-                        "linear-gradient(135deg, #FFD700, #E6B800)")
-                    }
                     onClick={() => handleAddToCart(item.productId)}
                   >
                     🛒 Add to Cart
@@ -133,14 +128,6 @@ const Wishlist = () => {
                       background: "linear-gradient(135deg, #FF4D4D, #E53935)",
                       color: "#fff",
                     }}
-                    onMouseEnter={(e) =>
-                      (e.target.style.background =
-                        "linear-gradient(135deg, #FF6B6B, #EF5350)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.background =
-                        "linear-gradient(135deg, #FF4D4D, #E53935)")
-                    }
                     onClick={() => handleRemoveFromWishlist(item.productId)}
                   >
                     ❌ Remove

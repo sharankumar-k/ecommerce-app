@@ -32,9 +32,7 @@ const Cart = () => {
   };
 
   const calculateTotal = () =>
-    cart
-      .reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0)
-      .toFixed(2);
+    cart.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0).toFixed(2);
 
   const handleClearCart = async () => {
     try {
@@ -45,7 +43,6 @@ const Cart = () => {
     }
   };
 
-  // Unified elegant button styling
   const buttonStyle = {
     minWidth: "140px",
     padding: "10px 18px",
@@ -69,7 +66,16 @@ const Cart = () => {
           <div className="spinner-border text-primary" role="status"></div>
         </div>
       ) : cart.length === 0 ? (
-        <p className="text-muted text-center fs-5">Your cart is empty.</p>
+        <div className="text-center py-5">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/102/102661.png"
+            alt="Empty cart"
+            width="120"
+            height="120"
+            className="mb-3"
+          />
+          <p className="text-muted fs-5">Your cart is empty.</p>
+        </div>
       ) : (
         <>
           <div className="table-responsive">
@@ -91,7 +97,7 @@ const Cart = () => {
                       <img
                         src={
                           item.imageUrl ||
-                          "https://via.placeholder.com/80x80.png?text=No+Image"
+                          "https://cdn-icons-png.flaticon.com/512/2748/2748558.png"
                         }
                         alt={item.productName}
                         style={{
@@ -127,12 +133,6 @@ const Cart = () => {
                   background: "linear-gradient(135deg, #FFD700, #E6B800)",
                   color: "#212121",
                 }}
-                onMouseEnter={(e) =>
-                  (e.target.style.background = "linear-gradient(135deg, #FFE55C, #FFCA28)")
-                }
-                onMouseLeave={(e) =>
-                  (e.target.style.background = "linear-gradient(135deg, #FFD700, #E6B800)")
-                }
                 onClick={() => navigate("/checkout")}
               >
                 Proceed to Checkout
@@ -144,12 +144,6 @@ const Cart = () => {
                   background: "linear-gradient(135deg, #FF4D4D, #E53935)",
                   color: "#fff",
                 }}
-                onMouseEnter={(e) =>
-                  (e.target.style.background = "linear-gradient(135deg, #FF6B6B, #EF5350)")
-                }
-                onMouseLeave={(e) =>
-                  (e.target.style.background = "linear-gradient(135deg, #FF4D4D, #E53935)")
-                }
                 onClick={handleClearCart}
               >
                 Clear Cart

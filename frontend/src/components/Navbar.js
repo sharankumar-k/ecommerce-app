@@ -23,8 +23,8 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         {/* Brand */}
-        <Link className="navbar-brand" to="/">
-          🛍️ E-Commerce
+        <Link className="navbar-brand fw-bold text-light" to="/">
+          🛍️ PrimeZone
         </Link>
 
         {/* Toggle button for mobile */}

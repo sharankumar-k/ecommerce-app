@@ -8,7 +8,7 @@ const Home = () => {
     <div className="home-container">
       {/* HERO SECTION */}
       <section className="hero-banner">
-        <h1>Welcome to E-Commerce</h1>
+        <h1>Welcome to PrimeZone</h1>
         <p>Discover amazing deals on the latest products with fast delivery</p>
         <Link to="/products" className="hero-cta">
           Shop Now 🚀

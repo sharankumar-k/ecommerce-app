@@ -83,96 +83,141 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-/* ======================== ENHANCED NAVBAR ======================== */
+/* ==================== PRIMEZONE NAVBAR (Dark Premium Gradient) ==================== */
 .navbar {
-  background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
-  padding: var(--space-sm) var(--space-lg);
+  background: linear-gradient(135deg, #1a2a6c 0%, #2c3e50 50%, #3498db 100%);
+  padding: 0.9rem 2rem;
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-lg);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
 }
 
+/* Brand Logo */
 .navbar-brand {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   letter-spacing: -0.5px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
 }
 
+.navbar-brand:hover {
+  color: #00f2fe !important;
+  transform: scale(1.05);
+}
+
+/* Nav Links */
 .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.9) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   font-weight: 500;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-sm);
-  transition: var(--transition-fast);
+  padding: 0.6rem 1rem;
   position: relative;
+  transition: all 0.3s ease;
 }
 
-.navbar-nav .nav-link:hover {
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
-}
-
+/* 🌈 Center-out Underline Animation */
 .navbar-nav .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: 0;
+  bottom: 0.3rem;
   left: 50%;
   width: 0;
   height: 2px;
-  background: var(--accent-yellow);
-  transition: var(--transition-normal);
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  transition: all 0.35s ease;
   transform: translateX(-50%);
+  border-radius: 2px;
 }
 
 .navbar-nav .nav-link:hover::after {
   width: 70%;
 }
 
-/* Enhanced Search Bar */
+/* Hover Effects */
+.navbar-nav .nav-link:hover {
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+/* Active Route */
+.navbar-nav .nav-link.active {
+  color: #00f2fe !important;
+  font-weight: 600;
+}
+.navbar-nav .nav-link.active::after {
+  width: 70%;
+  background: #00f2fe;
+}
+
+/* Search Bar */
 .navbar-search {
   width: 100%;
-  max-width: 680px;
+  max-width: 650px;
   position: relative;
 }
 
 .navbar-search .form-control {
-  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  border-radius: 50px 0 0 50px;
   border: none;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
+  padding: 0.7rem 1.2rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.navbar-search .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .navbar-search .form-control:focus {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+  outline: none;
 }
 
 .navbar-search .btn {
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  border-radius: 0 50px 50px 0;
   border: none;
-  background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
-  color: var(--text-dark);
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  color: white;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
+  padding: 0.7rem 1.3rem;
+  transition: all 0.3s ease;
 }
 
 .navbar-search .btn:hover {
-  background: linear-gradient(135deg, #F8F9FA, #E9ECEF);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
 }
+
+/* Mobile View */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 0.7rem 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .navbar-nav .nav-link {
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .navbar-search {
+    margin-top: 1rem;
+  }
+}
+
+
+
+
+
 
 /* ==================== ENHANCED CATEGORY STRIP ==================== */
 .category-strip {
@@ -597,62 +642,129 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
-/* ======================= ENHANCED FOOTER ======================== */
+/* ======================= 🌐 PRIMEZONE FOOTER — THEME MATCHED ======================== */
 footer {
-  background: linear-gradient(135deg, #0F172A, #1E293B);
-  color: #F1F5F9;
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  color: #EAF2FF;
   text-align: center;
   padding: var(--space-2xl) 0 var(--space-xl);
   margin-top: auto;
   width: 100%;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.25);
+  font-family: "Inter", sans-serif;
+  transition: background 0.6s ease-in-out;
 }
 
+/* ✨ Gradient accent line on top */
 footer::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+  height: 3px;
+  background: linear-gradient(90deg, #4facfe, #00f2fe, #667eea, #764ba2);
+  border-radius: 3px;
+  animation: glowline 6s linear infinite;
+  background-size: 400% 100%;
 }
 
+@keyframes glowline {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 📜 Text styling */
 footer p {
   margin: 0;
   opacity: 0.9;
   font-size: 0.95rem;
   font-weight: 500;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.3s ease;
 }
 
+footer p:hover {
+  color: #ffffff;
+}
+
+/* 🌐 Social icons row */
 footer .social-icons {
   margin-top: var(--space-lg);
   display: flex;
   justify-content: center;
   gap: var(--space-md);
+  flex-wrap: wrap;
 }
 
+/* 🌀 Icon buttons */
 footer .social-icons a {
-  color: #CBD5E1;
-  font-size: 1.5rem;
-  transition: var(--transition-normal);
+  color: #dbe9ff;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.35s ease-in-out;
 }
 
+/* 🌟 Hover effect — smooth glow with scale */
 footer .social-icons a:hover {
-  color: var(--accent-yellow);
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-3px) scale(1.1);
-  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
+  color: #fff;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  transform: translateY(-3px) scale(1.12);
+  box-shadow: 0 10px 25px rgba(52, 152, 219, 0.45);
+  border-color: rgba(255, 255, 255, 0.25);
 }
+
+/* 🌊 Decorative wave at bottom */
+footer::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.08)" d="M0,0 C250,100 750,0 1000,100 L1000,00 L0,0 Z"></path></svg>');
+  background-size: cover;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* 📱 Mobile Responsiveness */
+@media (max-width: 576px) {
+  footer {
+    padding: var(--space-xl) 0 var(--space-lg);
+  }
+
+  footer p {
+    font-size: 0.85rem;
+  }
+
+  footer .social-icons a {
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
+  }
+}
+
+
 
 /* ===================== RESPONSIVE ENHANCEMENTS ====================== */
 @media (max-width: 1200px) {
@@ -863,3 +975,153 @@ a:focus-visible,
 
 
 
+/* =========================================================
+   🌟 PRIMEZONE — FINAL TEXT & FONT THEME
+   Clean | Professional | Cool Blue | Elegant White Hero Text
+   ========================================================= */
+
+/* 🪶 Importing clean, modern font families:
+   - Poppins: Headings (strong, premium)
+   - Nunito Sans: Body (soft, readable)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap');
+
+/* ===================== GLOBAL VARIABLES ===================== */
+:root {
+  /* 🎨 Font Family */
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Nunito Sans', sans-serif;
+
+  /* 🌈 Text Colors */
+  --text-primary: #0a3d62;   /* Deep blue — for main titles */
+  --text-secondary: #1565c0; /* Calm ocean blue — for subheadings */
+  --text-body: #1e293b;      /* Neutral dark blue-grey — readable */
+  --text-muted: #607d8b;     /* Subtle grey-blue tone */
+  --link-color: #1565c0;     /* Bright medium-blue links */
+  --link-hover: #0d47a1;     /* Slightly darker hover tone */
+
+  /* 💎 Accent Colors */
+  --accent-blue: #1976d2;
+  --accent-teal: #00bcd4;
+  --accent-green: #26a69a;
+
+  /* 🔅 Hero Text */
+  --hero-text: #ffffff;  /* Pure white text for hero on gradient */
+}
+
+/* ===================== BASE BODY STYLING ===================== */
+body {
+  font-family: var(--font-body);
+  color: var(--text-body);
+  font-size: 15px;
+  line-height: 1.7;
+  background: linear-gradient(135deg, #e6f0ff 0%, #fafdff 100%);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================== HEADINGS ===================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 0.6em;
+}
+
+p, li, span {
+  font-family: var(--font-body);
+  color: var(--text-body);
+  font-size: 1rem;
+  margin-bottom: 1em;
+}
+
+/* ===================== HERO TEXT (White) ===================== */
+.hero-heading {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--hero-text);
+  text-align: center;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+/* HERO SUBTEXT */
+.hero-banner p {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9); /* soft white for subtle tone */
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* better readability */
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* ===================== LINK STYLING ===================== */
+a {
+  color: var(--link-color);
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Animated underline — expands from center */
+a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--link-color);
+  transition: width 0.3s ease;
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+a:hover::after {
+  width: 60%;
+}
+
+/* ===================== BUTTON TEXT ===================== */
+button {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
+}
+
+/* ===================== MUTED / SMALL TEXT ===================== */
+.text-muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+small {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ===================== RESPONSIVE FONT SCALING ===================== */
+@media (max-width: 768px) {
+  .hero-heading {
+    font-size: 2.4rem;
+  }
+  .hero-subtext {
+    font-size: 1.05rem;
+  }
+}
